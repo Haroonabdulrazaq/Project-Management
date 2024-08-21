@@ -2,34 +2,19 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import projectRouter from './routes/projectRoutes';
 import { prismaDisconnectMiddleware } from './middleware/prismaDisconnect';
-const postgres = require('postgres');
+import { getPgVersion } from './models/DBconnection';
+
 dotenv.config();
 
 const app = express();
-app.use(express.json());
 const port = process.env.PORT;
+// get form body data
+app.use(express.json());
 
-let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+//DB connections
+// getPgVersion();
 
-const sql = postgres({
-  host: PGHOST,
-  database: PGDATABASE,
-  username: PGUSER,
-  password: PGPASSWORD,
-  port: 5432,
-  ssl: 'require',
-  connection: {
-    options: `project=${ENDPOINT_ID}`,
-  },
-});
-
-async function getPgVersion() {
-  const result = await sql`select version()`;
-  console.log(result[0]);
-}
-
-getPgVersion();
-
+//Routes
 app.use('/projects', projectRouter);
 
 app.use(prismaDisconnectMiddleware);
