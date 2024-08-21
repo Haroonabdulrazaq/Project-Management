@@ -3,11 +3,10 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const getAllProjects = async () => {
+export const getAllProjects = async (req: Request, res: Response) => {
   try {
     const allProjects = await prisma.projects.findMany();
-    Response.json({
-      status: 200,
+    res.status(200).json({
       message: 'Projects fetched successfully!',
       data: allProjects,
     });
@@ -30,8 +29,7 @@ export const createProject = async (req: Request, res: Response) => {
         due_date,
       },
     });
-    res.json({
-      status: 201,
+    res.status(201).json({
       message: 'Project created successfully!',
       data: newProject,
     });
@@ -41,5 +39,7 @@ export const createProject = async (req: Request, res: Response) => {
       message: 'Could not create project',
       data: error,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };

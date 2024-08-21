@@ -3,18 +3,11 @@ import {
   getAllProjects,
   createProject,
 } from '../controllers/projects.controller';
+import logger from '../middleware/logger';
 
 const projectRouter: express.Router = express.Router();
-const logger = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  console.log('Project Router');
-  next();
-};
 
-projectRouter.get('/', logger, getAllProjects);
+projectRouter.get('/', getAllProjects);
 
 projectRouter.get('/:id', (req: express.Request, res: express.Response) => {
   res.status(200).send(`Get projectById`);
