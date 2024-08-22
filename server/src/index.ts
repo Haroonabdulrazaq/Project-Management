@@ -17,7 +17,7 @@ getPgVersion();
 
 //Routes
 app.use('/projects', projectRouter);
-app.use('/projects/:id/tasks', taskRouter);
+app.use('/projects/:projectId/tasks', taskRouter);
 
 app.use(prismaDisconnectMiddleware);
 app.listen(port, () => {

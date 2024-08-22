@@ -136,19 +136,31 @@ export const deleteProject = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
-    const project = await prisma.projects.delete({
+    const projectId = parseInt(req.params.id);
+
+    const project = await prisma.projects.findUnique({
+      where: { id: projectId },
+      include: { Tasks: true },
+    });
+
+    if (!project) {
+      res.status(404).json({ message: 'Project not found' });
+      return;
+    }
+
+    if (project.Tasks.length > 0) {
+      res.status(400).json({
+        message:
+          'Project has tasks, cannot delete, kindly delete all tasks first',
+        data: project,
+      });
+      return;
+    }
+    await prisma.projects.delete({
       where: {
-        id: parseInt(id),
+        id: projectId,
       },
     });
-    // if (project?.tasks.length > 0) {
-    //   res.status(400).json({
-    //     message:
-    //       'Project has tasks, cannot delete, kindly delete all tasks first',
-    //     data: project,
-    //   });
-    // }
     res.status(200).json({
       message: 'Project deleted successfully!',
       data: project,

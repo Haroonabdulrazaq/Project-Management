@@ -1,36 +1,23 @@
-import express from 'express';
-// import {
-//   getAllProjects,
-//   getProjectById,
-//   createProject,
-//   updateProject,
-//   deleteProject,
-// } from '../controllers/projects.controller';
-// import logger from '../middleware/logger';
+import express, { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import {
+  getAllTasks,
+  createTask,
+  updateTask,
+  deleteTask,
+} from '../controllers/tasks.controller';
+import logger from '../middleware/logger';
 // import fieldValidation from '../middleware/validation';
 
-const taskRouter: express.Router = express.Router();
+const taskRouter: express.Router = express.Router({ mergeParams: true });
+const prisma = new PrismaClient();
 
-taskRouter.get('/', (req, res) => {
-  console.log('Params:', req.params);
-  console.log('Query:', req.query);
-  res.status(200).json('get all tasks');
-});
+taskRouter.get('/', logger, getAllTasks);
 
-taskRouter.get('/:id', () => {
-  console.log('get task by id');
-});
+taskRouter.post('/', createTask);
 
-taskRouter.post('/', () => {
-  console.log('create a task');
-});
+taskRouter.put('/:taskId', updateTask);
 
-taskRouter.put('/:id', () => {
-  console.log('Edit a task');
-});
-
-taskRouter.delete('/:id', () => {
-  console.log('delete a task');
-});
+taskRouter.delete('/:taskId', deleteTask);
 
 export default taskRouter;
