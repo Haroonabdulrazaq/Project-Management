@@ -70,6 +70,15 @@ model Tasks {
 ### Projects Endpoint
 
 ```bash
+## Sample object
+{
+  "name": "Project 5",
+  "description": "This is project five",
+  "due_date": "2024-12-30T23:59:59.999Z"
+}
+```
+
+```bash
         Get All Projects
         method: GET
         url: http://localhost:3000/projects
@@ -100,6 +109,15 @@ model Tasks {
 ```
 
 ### Task Endpoint
+
+```bash
+## Sample object
+{
+  "name": "Design About Page",
+  "description":"Create a visually appealing landing page.",
+  "status": "COMPLETED"
+}
+```
 
 ```bash
         Get all tasks
