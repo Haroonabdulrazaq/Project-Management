@@ -13,8 +13,14 @@ model Projects {
   updatedAt   DateTime @updatedAt
   name        String   @db.VarChar(255)
   description String?
-  due_date    DateTime
+  due_date    DateTimestst
   Tasks       Tasks[]
+}
+
+enum TaskStatus {
+  IN_PROGRESS
+  COMPLETED
+  PENDING
 }
 
 model Tasks {
@@ -23,7 +29,7 @@ model Tasks {
   updatedAt   DateTime @updatedAt
   name        String   @db.VarChar(255)
   description String?
-  status      Boolean  @default(false)
+  status      TaskStatus @default(PENDING)
   projectId   Int
   projects    Projects @relation(fields: [projectId], references: [id])
 }

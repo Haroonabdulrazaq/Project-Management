@@ -100,6 +100,15 @@ export const updateProject = async (
   try {
     const { id } = req.params;
     const { name, description, due_date } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({
+        message: 'Oops, An error occured',
+        errors: errors.array(),
+      });
+      return;
+    }
     const project = await prisma.projects.update({
       where: {
         id: parseInt(id),
@@ -117,6 +126,36 @@ export const updateProject = async (
   } catch (error) {
     res.status(500).json({
       message: 'Could not update project',
+      data: error,
+    });
+  }
+};
+
+export const deleteProject = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const project = await prisma.projects.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+    // if (project?.tasks.length > 0) {
+    //   res.status(400).json({
+    //     message:
+    //       'Project has tasks, cannot delete, kindly delete all tasks first',
+    //     data: project,
+    //   });
+    // }
+    res.status(200).json({
+      message: 'Project deleted successfully!',
+      data: project,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Could not delete project',
       data: error,
     });
   }
