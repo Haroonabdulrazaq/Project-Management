@@ -17,6 +17,11 @@ const sql = postgres({
 });
 
 export async function getPgVersion() {
-  const result = await sql`select version()`;
-  console.log(result[0]);
+  try {
+    await sql`select version()`;
+    console.log('DB connected successfully');
+  } catch (error) {
+    console.error('DB connection error');
+    console.error(error);
+  }
 }

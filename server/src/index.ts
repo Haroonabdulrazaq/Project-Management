@@ -12,7 +12,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 //DB connections
-// getPgVersion();
+getPgVersion();
 
 //Routes
 app.use('/projects', projectRouter);
