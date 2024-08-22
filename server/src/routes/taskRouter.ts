@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import {
   getAllTasks,
@@ -7,17 +7,17 @@ import {
   deleteTask,
 } from '../controllers/tasks.controller';
 import logger from '../middleware/logger';
-// import fieldValidation from '../middleware/validation';
+import { taskFieldValidation } from '../middleware/validation';
 
 const taskRouter: express.Router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
 taskRouter.get('/', logger, getAllTasks);
 
-taskRouter.post('/', createTask);
+taskRouter.post('/', logger, taskFieldValidation, createTask);
 
-taskRouter.put('/:taskId', updateTask);
+taskRouter.put('/:taskId', logger, taskFieldValidation, updateTask);
 
-taskRouter.delete('/:taskId', deleteTask);
+taskRouter.delete('/:taskId', logger, deleteTask);
 
 export default taskRouter;
