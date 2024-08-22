@@ -16,7 +16,9 @@ Step 2:
 ```bash
 # Clone this repository
 $ git clone https://github.com/Haroonabdulrazaq/Project-Management.git
+```
 
+```bash
 # Change directory into the repository
 $ cd Project-Management
 ```
