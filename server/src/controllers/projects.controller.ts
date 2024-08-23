@@ -9,7 +9,9 @@ export const getAllProjects = async (
   res: Response
 ): Promise<void> => {
   try {
-    const allProjects = await prisma.projects.findMany();
+    const allProjects = await prisma.projects.findMany({
+      include: { Tasks: true },
+    });
     if (allProjects.length === 0) {
       res.status(404).json({
         message: 'No projects found',

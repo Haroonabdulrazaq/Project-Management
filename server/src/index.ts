@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import projectRouter from './routes/projectRoutes';
 import { prismaDisconnectMiddleware } from './middleware/prismaDisconnect';
@@ -11,6 +12,8 @@ const app = express();
 const port = process.env.PORT;
 // get form body data
 app.use(express.json());
+// CORS
+app.use(cors());
 
 //DB connections
 getPgVersion();

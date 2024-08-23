@@ -1,4 +1,5 @@
 import { Space, Table, Tag } from 'antd';
+import { useEffect } from 'react';
 
 const { Column, ColumnGroup } = Table;
 
@@ -111,6 +112,18 @@ const data: DataType[] = [
 ];
 
 const TableContent = () => {
+  const fetchProject = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/projects');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchProject();
+  }, []);
   return (
     <Table dataSource={data} className="data-table">
       <ColumnGroup title="Name">
