@@ -1,35 +1,46 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.scss';
+import { Button, Layout, Typography } from 'antd';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import Sidebar from './components/Sidebar';
 
-function App() {
-  const [count, setCount] = useState(0);
+import './App.scss';
+import CustomHeader from './components/Header';
+import TableContent from './components/TableContent';
+
+const { Sider, Header, Content } = Layout;
+const App = () => {
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Layout>
+      <Sider
+        theme="light"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        className="sider"
+      >
+        <Sidebar />
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          className="trigger-btn"
+        />
+      </Sider>
+      <Layout>
+        <Header className="header">
+          <CustomHeader />
+        </Header>
+        <Content className="content">
+          <Typography.Title level={4} type="secondary" className="main-title">
+            Projects
+          </Typography.Title>
+          <TableContent />
+        </Content>
+      </Layout>
+    </Layout>
   );
-}
+};
 
 export default App;
