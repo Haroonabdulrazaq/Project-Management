@@ -20,7 +20,7 @@ export const getAllProjects = async (
     }
     res.status(200).json({
       message: 'Projects fetched successfully!',
-      data: allProjects,
+      data: allProjects.reverse(),
     });
   } catch (error) {
     res.status(500).json({

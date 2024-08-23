@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   line-height: 1.7;
   background: $background-primary;
 }
@@ -95,6 +95,21 @@ body {
   align-items: flex-start;
   padding: 5rem 5rem;
   overflow: scroll;
+  .title-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    button {
+      background-color: $mint-green;
+    }
+    button:hover {
+      background-color: $mint-green !important;
+      opacity: 0.8;
+    }
+  }
   .main-title {
     font-size: 2rem;
     font-weight: 500;

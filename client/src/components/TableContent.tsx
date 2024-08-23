@@ -1,165 +1,54 @@
-import { Space, Table, Tag } from 'antd';
+import { Space, Table } from 'antd';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  fetchProjects,
+  fetchSingleProject,
+} from '../features/project/projectSlice';
+import { RootState, useAppDispatch } from '../app/store';
+import { AiTwotoneEye } from 'react-icons/ai';
+import { Project } from '../utils/definitions';
 
-const { Column, ColumnGroup } = Table;
-
-interface DataType {
-  key: React.Key;
-  firstName: string;
-  lastName: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const data: DataType[] = [
-  {
-    key: '1',
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-  {
-    key: '4',
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '5',
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '6',
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-  {
-    key: '7',
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '8',
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '9',
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-  {
-    key: '10',
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '11',
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '12',
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+const { Column } = Table;
 
 const TableContent = () => {
-  const fetchProject = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/projects');
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { projectList, isLoading } = useSelector(
+    (state: RootState) => state.projects
+  );
+
   useEffect(() => {
-    fetchProject();
+    dispatch(fetchProjects());
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
-    <Table dataSource={data} className="data-table">
-      <ColumnGroup title="Name">
-        <Column title="First Name" dataIndex="firstName" key="firstName" />
-        <Column title="Last Name" dataIndex="lastName" key="lastName" />
-      </ColumnGroup>
-      <Column title="Age" dataIndex="age" key="age" />
-      <Column title="Address" dataIndex="address" key="address" />
+    <Table dataSource={projectList} className="data-table">
+      <Column title="Name" dataIndex="name" key="name" />
+      <Column title="Description" dataIndex="description" key="description" />
       <Column
-        title="Tags"
-        dataIndex="tags"
-        key="tags"
-        render={(tags: string[]) => (
-          <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'loser') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        )}
+        title="Due Date"
+        dataIndex="due_date"
+        key="due_date"
+        render={(due_date: string) => <>{due_date.split('T')[0]}</>}
+      />
+      <Column
+        title="No. of tasks"
+        dataIndex="Tasks"
+        key="Tasks"
+        render={(tasks: string[]) => <>{tasks.length}</>}
       />
       <Column
         title="Action"
         key="action"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        render={(_: any, record: DataType) => (
-          <Space size="middle">
-            <a>Invite {record.lastName}</a>
-            <a>Delete</a>
+        render={(_: any, record: Project) => (
+          <Space size="large">
+            <a onClick={() => dispatch(fetchSingleProject(record.id))}>
+              <AiTwotoneEye />
+            </a>
           </Space>
         )}
       />
