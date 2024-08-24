@@ -1,10 +1,12 @@
-import React from 'react';
-import CustomLayout from './CustomLayout';
+import ComingSoon from './components/ComingSoon.tsx';
+import CustomLayout from './components/CustomLayout.tsx';
 
 const App = () => {
   return (
     <div>
-      <CustomLayout />
+      <CustomLayout>
+        <ComingSoon />
+      </CustomLayout>
     </div>
   );
 };

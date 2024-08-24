@@ -11,7 +11,7 @@ import { Project } from '../utils/definitions';
 
 const { Column } = Table;
 
-const TableContent = () => {
+const TableContent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { projectList, isLoading } = useSelector(
     (state: RootState) => state.projects
@@ -19,7 +19,7 @@ const TableContent = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>Loading...</div>;

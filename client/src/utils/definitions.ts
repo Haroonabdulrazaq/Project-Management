@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Task {
   id: number;
   name: string;
@@ -27,4 +29,8 @@ export interface InitialState {
   selectedProject: Project | null;
   isLoading: boolean;
   error: string;
+}
+
+export interface CustomLayoutProps {
+  children: ReactNode;
 }

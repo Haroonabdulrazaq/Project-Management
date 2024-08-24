@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Button, Flex, Layout, Typography } from 'antd';
+import { Button, Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import Sidebar from './components/Sidebar';
+import Sidebar from './Sidebar';
 
-import './App.scss';
-import CustomHeader from './components/Header';
-import TableContent from './components/TableContent';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import '../App.scss';
+import CustomHeader from './Header';
+import { CustomLayoutProps } from '../utils/definitions';
 
 const { Sider, Header, Content } = Layout;
-const CustomLayout = () => {
+
+const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -33,18 +33,7 @@ const CustomLayout = () => {
         <Header className="header">
           <CustomHeader />
         </Header>
-        <Content className="content">
-          <Flex justify="space-between" align="center" className="title-button">
-            <Typography.Title level={4} type="secondary" className="main-title">
-              Projects
-            </Typography.Title>
-            <Button type="primary" color="#4f6f52">
-              <AiFillPlusCircle />
-              Create Project
-            </Button>
-          </Flex>
-          <TableContent />
-        </Content>
+        <Content className="content">{children}</Content>
       </Layout>
     </Layout>
   );
