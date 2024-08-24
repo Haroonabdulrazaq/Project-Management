@@ -21,7 +21,7 @@ export const fetchProjects = createAsyncThunk(
   }
 );
 export const fetchSingleProject = createAsyncThunk(
-  'projects/fetchProjects',
+  'projects/fetchSingleProject',
   async (payload: number) => {
     try {
       const response = await fetch(`http://localhost:3000/projects/${payload}`);
