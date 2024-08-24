@@ -1,12 +1,12 @@
 import React from 'react';
-import CustomLayout from '../components/CustomLayout';
 import ComingSoon from '../components/ComingSoon';
+// import CustomLayout from '../components/CustomLayout';
 
 const Dashboard: React.FC = () => {
   return (
-    <CustomLayout>
+    <>
       <ComingSoon />
-    </CustomLayout>
+    </>
   );
 };
 

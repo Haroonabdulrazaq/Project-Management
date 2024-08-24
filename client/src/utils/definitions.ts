@@ -34,3 +34,8 @@ export interface InitialState {
 export interface CustomLayoutProps {
   children: ReactNode;
 }
+
+export interface RouteError {
+  statusText?: string;
+  message?: string;
+}

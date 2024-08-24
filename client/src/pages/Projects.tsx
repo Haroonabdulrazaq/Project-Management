@@ -1,11 +1,12 @@
 import TableContent from '../components/TableContent';
 import { Button, Flex, Typography } from 'antd';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import CustomLayout from '../components/CustomLayout';
+// import CustomLayout from '../components/CustomLayout';
 
 const Projects = () => {
   return (
-    <CustomLayout>
+    // <CustomLayout>
+    <>
       <Flex justify="space-between" align="center" className="title-button">
         <Typography.Title level={4} type="secondary" className="main-title">
           Projects
@@ -16,7 +17,8 @@ const Projects = () => {
         </Button>
       </Flex>
       <TableContent />
-    </CustomLayout>
+    </>
+    // </CustomLayout>
   );
 };
 
