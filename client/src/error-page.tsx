@@ -5,7 +5,6 @@ import CustomLayout from './components/CustomLayout';
 
 export default function ErrorPage() {
   const error = useRouteError() as RouteError;
-  console.log(error);
 
   return (
     <CustomLayout>

@@ -8,14 +8,18 @@ const initialState: InitialState = {
   error: '',
 };
 
+const { VITE_SERVER_URL } = import.meta.env;
+
 export const fetchProjects = createAsyncThunk(
   'projects/fetchProjects',
   async () => {
+    console.log('fetching projects in Slice', import.meta.env);
     try {
-      const response = await fetch('http://localhost:3000/projects');
+      const response = await fetch(`${VITE_SERVER_URL}/projects`);
       const data = await response.json();
       return data;
     } catch (error) {
+      console.log(error);
       return error;
     }
   }
@@ -24,7 +28,7 @@ export const fetchSingleProject = createAsyncThunk(
   'projects/fetchSingleProject',
   async (payload: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/projects/${payload}`);
+      const response = await fetch(`${VITE_SERVER_URL}/projects/${payload}`);
       const data = await response.json();
       return data;
     } catch (error) {
@@ -59,6 +63,8 @@ const projectSlice = createSlice({
     builder.addCase(
       fetchProjects.rejected,
       (state, action: PayloadAction<unknown>) => {
+        console.log('In Rejected Slice', action);
+
         state.error = action.payload as string;
         state.isLoading = false;
         state.projectList = [];

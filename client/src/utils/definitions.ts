@@ -9,7 +9,7 @@ export interface Task {
   updatedAt: string; // ISO date string
 }
 
-export interface Project {
+export interface IProject {
   id: number;
   name: string;
   description?: string;
@@ -20,13 +20,13 @@ export interface Project {
 }
 
 export interface ApiResponse {
-  data: Project[];
+  data: IProject[];
   message: string;
 }
 
 export interface InitialState {
-  projectList: Project[];
-  selectedProject: Project | null;
+  projectList: IProject[];
+  selectedProject: IProject | null;
   isLoading: boolean;
   error: string;
 }

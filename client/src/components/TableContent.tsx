@@ -7,13 +7,13 @@ import {
 } from '../features/project/projectSlice';
 import { RootState, useAppDispatch } from '../app/store';
 import { AiTwotoneEye } from 'react-icons/ai';
-import { Project } from '../utils/definitions';
+import { IProject } from '../utils/definitions';
 
 const { Column } = Table;
 
 const TableContent: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { projectList, isLoading } = useSelector(
+  const { projectList, isLoading, error } = useSelector(
     (state: RootState) => state.projects
   );
 
@@ -23,6 +23,9 @@ const TableContent: React.FC = () => {
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+  if (error) {
+    console.error(error);
   }
   return (
     <Table dataSource={projectList} className="data-table">
@@ -44,7 +47,7 @@ const TableContent: React.FC = () => {
         title="Action"
         key="action"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        render={(_: any, record: Project) => (
+        render={(_: any, record: IProject) => (
           <Space size="large">
             <a onClick={() => dispatch(fetchSingleProject(record.id))}>
               <AiTwotoneEye />

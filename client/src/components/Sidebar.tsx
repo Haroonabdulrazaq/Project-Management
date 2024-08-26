@@ -6,8 +6,11 @@ import {
   AiOutlineTeam,
   AiOutlineUnorderedList,
 } from 'react-icons/ai';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
+  const location = useLocation();
+
   return (
     <>
       <Flex align="center" justify="center">
@@ -18,32 +21,32 @@ const Sidebar = () => {
       </Flex>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['2']}
+        defaultSelectedKeys={[location.pathname]}
         className="menu-bar"
         items={[
           {
-            key: '1',
+            key: '/dashboard',
             icon: <AiOutlineDashboard />,
             title: 'Dashboard',
-            label: <a href="/dashboard">Dashboard</a>,
+            label: <Link to="/dashboard">Dashboard</Link>,
           },
           {
-            key: '2',
+            key: '/projects',
             icon: <AiOutlineCluster />,
             title: 'Projects',
-            label: <a href="/projects">Projects</a>,
+            label: <Link to="/projects">Projects</Link>,
           },
           {
-            key: '3',
+            key: '/tasks',
             icon: <AiOutlineUnorderedList />,
             title: 'Tasks',
-            label: <a href="/tasks">Tasks</a>,
+            label: <Link to="/tasks">Tasks</Link>,
           },
           {
-            key: '4',
+            key: '/teams',
             icon: <AiOutlineTeam />,
             title: 'Teams',
-            label: <a href="/teams">Teams</a>,
+            label: <Link to="/teams">Teams</Link>,
           },
         ]}
       />

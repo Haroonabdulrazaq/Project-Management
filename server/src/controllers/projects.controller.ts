@@ -14,7 +14,7 @@ export const getAllProjects = async (
     });
     if (allProjects.length === 0) {
       res.status(404).json({
-        message: 'No projects found',
+        message: 'No project found',
         data: allProjects,
       });
     }

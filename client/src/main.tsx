@@ -1,13 +1,13 @@
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import './index.scss';
 import store from './app/store.ts';
 import { StrictMode } from 'react';
 import Projects from './pages/Projects.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import ErrorPage from './error-page.tsx';
 import App from './App.tsx';
+import './index.scss';
 
 const router = createBrowserRouter([
   {
@@ -22,12 +22,6 @@ const router = createBrowserRouter([
       {
         path: 'projects',
         element: <Projects />,
-        children: [
-          {
-            path: ':projectId',
-            // element: <Project />,
-          },
-        ],
       },
     ],
   },
