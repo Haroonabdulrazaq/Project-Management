@@ -37,6 +37,7 @@ export const getProjectById = async (
   try {
     const { id } = req.params;
     const project = await prisma.projects.findUnique({
+      include: { Tasks: true },
       where: {
         id: parseInt(id),
       },

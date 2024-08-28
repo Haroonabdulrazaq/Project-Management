@@ -39,6 +39,22 @@ body {
   padding: 20px;
 }
 
+.create-project-button {
+  background: $mint-green;
+  color: $white;
+  padding: 1rem 0.5rem;
+  font-size: 1rem;
+  border: none;
+  @include responsive('tab') {
+    padding: 2rem 1rem;
+    font-size: 1.5rem;
+  }
+}
+.create-project-button:hover {
+  opacity: 0.8;
+  color: white !important;
+  border: none;
+}
 .trigger-btn {
   font-size: 16px;
   width: 50px;
@@ -49,7 +65,7 @@ body {
 }
 .welcome-text {
   display: none !important;
-  @include responsive('tab') {
+  @include responsive('desktop') {
     display: block !important;
   }
 }
@@ -57,7 +73,7 @@ body {
 // Sider
 .sider {
   height: 100vh;
-  position: sticky;
+  position: sticky !important;
   left: 0;
   bottom: 0;
   top: 0;
@@ -111,7 +127,10 @@ body {
     }
   }
   .main-title {
-    font-size: 2rem;
+    font-size: 1rem;
+    @include responsive('tab') {
+      font-size: 2rem;
+    }
     font-weight: 500;
   }
   .data-table {
@@ -156,4 +175,59 @@ body {
 button:hover {
   background-color: $mint-green !important;
   opacity: 0.8;
+}
+
+// Project detail
+.project-detail-wrapper {
+  width: 100%;
+  min-height: 80vh;
+  @include flexPoint(column, flex-start);
+  align-items: flex-start;
+  gap: 5rem;
+  @include responsive('tab') {
+    @include flexPoint(row, space-around);
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .project-detail {
+    width: 100%;
+    min-height: 20vh;
+    border-radius: 0.5rem;
+    background: $white;
+    box-shadow: $shadow;
+    margin-bottom: 5rem;
+    text-align: left;
+    padding: 2rem;
+    @include responsive('tab') {
+      width: 30%;
+    }
+    .project-info {
+      min-height: inherit;
+      font-size: 1.5rem;
+      @include flexPoint(column, space-evenly);
+      align-items: flex-start;
+      @include responsive('tab') {
+        font-size: 1.5rem;
+      }
+      @include responsive('desktop') {
+        font-size: 1.7rem;
+      }
+      .info-title {
+        font-weight: 500;
+      }
+    }
+  }
+  .task-list {
+    width: 100%;
+    border-radius: 0.5rem;
+    background: $white;
+    box-shadow: $shadow;
+    margin-bottom: 5rem;
+    text-align: center;
+    @include responsive('tab') {
+      text-align: left;
+      width: 70%;
+    }
+  }
 }

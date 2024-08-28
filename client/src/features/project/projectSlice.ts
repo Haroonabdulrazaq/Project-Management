@@ -24,8 +24,8 @@ export const fetchProjects = createAsyncThunk(
     }
   }
 );
-export const fetchSingleProject = createAsyncThunk(
-  'projects/fetchSingleProject',
+export const fetchProjectById = createAsyncThunk(
+  'projects/fetchProjectById',
   async (payload: number) => {
     try {
       const response = await fetch(`${VITE_SERVER_URL}/projects/${payload}`);
@@ -37,7 +37,7 @@ export const fetchSingleProject = createAsyncThunk(
   }
 );
 export const createProject = createAsyncThunk(
-  'projects/fetchSingleProject',
+  'projects/createProject',
   async (payload: IProject) => {
     try {
       const response = await fetch(`${VITE_SERVER_URL}/projects`, {
@@ -86,6 +86,19 @@ const projectSlice = createSlice({
         state.projectList = [];
       }
     );
+    builder.addCase(fetchProjectById.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchProjectById.fulfilled, (state, action) => {
+      state.selectedProject = action.payload.data;
+      state.isLoading = false;
+      state.error = '';
+    });
+    builder.addCase(fetchProjectById.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.isLoading = false;
+      state.selectedProject = null;
+    });
   },
 });
 

@@ -1,5 +1,5 @@
 import TableContent from '../components/TableContent';
-import { Flex, Typography } from 'antd'; // Button,
+import { Button, Flex, Typography } from 'antd'; // Button,
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { Link, Outlet } from 'react-router-dom';
 
@@ -10,10 +10,12 @@ const Projects = () => {
         <Typography.Title level={4} type="secondary" className="main-title">
           Projects
         </Typography.Title>
-        <Link to={`/projects/new`} type="primary" color="#4f6f52">
-          <AiFillPlusCircle />
-          Create Project
-        </Link>
+        <Button className="create-project-button">
+          <AiFillPlusCircle size="2rem" />
+          <Link to={`/projects/new`} type="primary">
+            Create Project
+          </Link>
+        </Button>
       </Flex>
       <TableContent />
       <Outlet />

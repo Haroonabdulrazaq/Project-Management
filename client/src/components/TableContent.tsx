@@ -1,13 +1,11 @@
 import { Space, Table } from 'antd';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  fetchProjects,
-  fetchSingleProject,
-} from '../features/project/projectSlice';
+import { fetchProjects } from '../features/project/projectSlice';
 import { RootState, useAppDispatch } from '../app/store';
 import { AiTwotoneEye } from 'react-icons/ai';
 import { IProject } from '../utils/definitions';
+import { Link } from 'react-router-dom';
 
 const { Column } = Table;
 
@@ -53,14 +51,13 @@ const TableContent: React.FC = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         render={(_: any, record: IProject) => (
           <Space size="large">
-            <a onClick={() => dispatch(fetchSingleProject(record.id))}>
+            <Link to={`/projects/${record.id}`}>
               <AiTwotoneEye />
-            </a>
+            </Link>
           </Space>
         )}
       />
     </Table>
   );
 };
-
 export default TableContent;

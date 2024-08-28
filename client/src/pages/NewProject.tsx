@@ -6,7 +6,7 @@ const NewProject = () => {
     <>
       <div className="new-project-wrapper">
         <div className="form-wrapper">
-          <h2>Create new Project</h2>
+          <h2>Create New Project</h2>
           <ProjectForm />
         </div>
       </div>

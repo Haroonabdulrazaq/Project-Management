@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface Task {
+export interface ITask {
   id: number;
   name: string;
   description?: string;
@@ -16,7 +16,7 @@ export interface IProject {
   due_date: string;
   createdAt: string;
   updatedAt: string;
-  Tasks: Task[];
+  Tasks: ITask[];
 }
 
 export interface ApiResponse {
