@@ -5,6 +5,7 @@ import store from './app/store.ts';
 import { StrictMode } from 'react';
 import Projects from './pages/Projects.tsx';
 import Dashboard from './pages/Dashboard.tsx';
+import NewProject from './pages/NewProject.tsx';
 import ErrorPage from './error-page.tsx';
 import App from './App.tsx';
 import './index.scss';
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'projects',
         element: <Projects />,
+      },
+      {
+        path: 'projects/new',
+        element: <NewProject />,
       },
     ],
   },

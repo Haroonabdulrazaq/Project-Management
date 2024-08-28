@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -14,7 +15,6 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif !important;
   line-height: 1.7;
   background: $background-primary;
 }
@@ -121,4 +121,39 @@ body {
       width: 100%;
     }
   }
+}
+
+// New project
+.new-project-wrapper {
+  @include flexPoint(column, flex-start);
+  margin-top: 8rem;
+  width: 100%;
+  min-height: 100%;
+}
+.form-wrapper {
+  width: 35%;
+  border-radius: 0.5rem;
+  padding: 10rem 5rem 0rem;
+  @include flexPoint(column, center);
+  background: $white;
+  box-shadow: $shadow;
+}
+.project-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .ant-form-item {
+    width: 100%;
+  }
+}
+
+.project-button {
+  background-color: $mint-green;
+  width: 50%;
+}
+button:hover {
+  background-color: $mint-green !important;
+  opacity: 0.8;
 }

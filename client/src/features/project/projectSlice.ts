@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ApiResponse, InitialState } from '../../utils/definitions';
+import { IProject } from '../../utils/definitions';
 
 const initialState: InitialState = {
   projectList: [],
@@ -13,7 +14,6 @@ const { VITE_SERVER_URL } = import.meta.env;
 export const fetchProjects = createAsyncThunk(
   'projects/fetchProjects',
   async () => {
-    console.log('fetching projects in Slice', import.meta.env);
     try {
       const response = await fetch(`${VITE_SERVER_URL}/projects`);
       const data = await response.json();
@@ -29,6 +29,24 @@ export const fetchSingleProject = createAsyncThunk(
   async (payload: number) => {
     try {
       const response = await fetch(`${VITE_SERVER_URL}/projects/${payload}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+export const createProject = createAsyncThunk(
+  'projects/fetchSingleProject',
+  async (payload: IProject) => {
+    try {
+      const response = await fetch(`${VITE_SERVER_URL}/projects`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await response.json();
       return data;
     } catch (error) {
@@ -63,8 +81,6 @@ const projectSlice = createSlice({
     builder.addCase(
       fetchProjects.rejected,
       (state, action: PayloadAction<unknown>) => {
-        console.log('In Rejected Slice', action);
-
         state.error = action.payload as string;
         state.isLoading = false;
         state.projectList = [];

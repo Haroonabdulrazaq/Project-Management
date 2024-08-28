@@ -28,7 +28,11 @@ const TableContent: React.FC = () => {
     console.error(error);
   }
   return (
-    <Table dataSource={projectList} className="data-table">
+    <Table
+      dataSource={projectList}
+      rowKey={(record) => record.id}
+      className="data-table"
+    >
       <Column title="Name" dataIndex="name" key="name" />
       <Column title="Description" dataIndex="description" key="description" />
       <Column
@@ -40,7 +44,7 @@ const TableContent: React.FC = () => {
       <Column
         title="No. of tasks"
         dataIndex="Tasks"
-        key="Tasks"
+        key="tasks"
         render={(tasks: string[]) => <>{tasks.length}</>}
       />
       <Column
