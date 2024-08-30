@@ -3,23 +3,20 @@ import { Link, useParams } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../app/store';
 import { fetchProjectById } from '../features/project/projectSlice';
 import { useSelector } from 'react-redux';
-import '../App.scss';
-import { Button, Modal, Space, Table, Tag } from 'antd';
+import { Button, Space, Table, Tag } from 'antd';
 import Column from 'antd/es/table/Column';
 import { ITask } from '../utils/definitions';
-import {
-  AiFillCheckCircle,
-  AiFillPlusCircle,
-  AiOutlineDelete,
-} from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineDelete } from 'react-icons/ai';
 import { deleteTaskById } from '../features/task/taskSlice';
-// import ConfirmModal from '../components/ConfirmModal';
+import ConfirmModal from '../components/ConfirmModal';
+
+import '../App.scss';
 
 const Project = () => {
   const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [taskIdToDelete, setTaskIdToDelete] = useState<number | null>(null);
   const { projectId } = useParams<{ projectId: string }>();
   const { selectedProject, isLoading } = useSelector(
     (state: RootState) => state.projects
@@ -31,32 +28,23 @@ const Project = () => {
     }
   }, [dispatch, projectId]);
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setConfirmLoading(true);
-    setDeleteConfirm(true);
-    console.log('Clicked ok button');
-    setTimeout(() => {
-      setOpenModal(false);
+    if (projectId && taskIdToDelete !== null) {
+      await dispatch(deleteTaskById({ projectId, taskId: taskIdToDelete }));
+      dispatch(fetchProjectById(parseInt(projectId)));
+      setTaskIdToDelete(null);
       setConfirmLoading(false);
-      if (projectId) {
-        dispatch(fetchProjectById(parseInt(projectId)));
-      }
-    }, 2000);
+    }
+    setOpenModal(false);
   };
 
   const handleDelete = async (taskId: number) => {
-    // set up Modal to confirm delete
-    console.log('Handle Delete');
-
+    setTaskIdToDelete(taskId);
     setOpenModal(true);
-    if (projectId && deleteConfirm) {
-      console.log('delete task', projectId, taskId);
-      // await dispatch(deleteTaskById({ projectId, taskId }));
-    }
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setOpenModal(false);
   };
 
@@ -66,28 +54,13 @@ const Project = () => {
   return (
     <>
       {openModal && (
-        <Modal
-          title="Delete Task"
-          open={true}
-          onOk={handleOk}
+        <ConfirmModal
+          handleOk={handleOk}
+          handleCancel={handleCancel}
           confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          okButtonProps={{ style: { background: '#4f6f52', color: 'white' } }}
-          cancelButtonProps={{
-            style: {
-              background: 'white',
-              border: '1px solid red',
-              color: 'red',
-            },
-          }}
-        >
-          <div>
-            <AiFillCheckCircle color="green" size="2rem" />
-            <span style={{ marginLeft: '1rem', fontSize: '2rem' }}>
-              Are you sure you want to delete this task
-            </span>
-          </div>
-        </Modal>
+          modalTitle="Delete Task"
+          modalText="Are you sure you want to delete this task?"
+        />
       )}
       <Button
         className="create-project-button"

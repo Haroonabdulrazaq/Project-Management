@@ -1,34 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from 'antd';
 import { AiFillCheckCircle } from 'react-icons/ai';
 
 interface IConfrimModal {
   modalTitle: string;
   modalText: string;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOk: () => Promise<void>;
+  handleCancel: () => void;
+  confirmLoading: boolean;
 }
 
 const ConfirmModal: React.FC<IConfrimModal> = ({
   modalTitle,
   modalText,
-  setOpenModal,
+  handleOk,
+  handleCancel,
+  confirmLoading,
 }) => {
-  const [confirmLoading, setConfirmLoading] = useState(false);
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    console.log('Clicked ok button');
-    setTimeout(() => {
-      setOpenModal(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setOpenModal(false);
-  };
-
   return (
     <>
       <Modal
@@ -41,8 +29,8 @@ const ConfirmModal: React.FC<IConfrimModal> = ({
         cancelButtonProps={{
           style: {
             background: 'white',
-            border: '1px solid red',
-            color: 'red',
+            border: '1px solid #4f6f52',
+            color: '#4f6f52',
           },
         }}
       >
