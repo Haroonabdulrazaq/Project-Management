@@ -31,6 +31,13 @@ export interface InitialState {
   error: string;
 }
 
+export interface TaskInitialState {
+  taskList: ITask[];
+  selectedTask: ITask | null;
+  isLoading: boolean;
+  error: string;
+}
+
 export interface CustomLayoutProps {
   children: ReactNode;
 }

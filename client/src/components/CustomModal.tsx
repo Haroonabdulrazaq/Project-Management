@@ -3,11 +3,16 @@ import { Modal } from 'antd';
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
 
 interface ICustomModalProps {
+  title: string;
   status: string;
   message: string;
 }
 
-const CustomModal: React.FC<ICustomModalProps> = ({ status, message }) => {
+const CustomModal: React.FC<ICustomModalProps> = ({
+  title,
+  status,
+  message,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleOk = () => {
@@ -21,7 +26,7 @@ const CustomModal: React.FC<ICustomModalProps> = ({ status, message }) => {
   return (
     <>
       <Modal
-        title="Successfully Created"
+        title={title}
         open={isModalOpen}
         onOk={handleOk}
         okButtonProps={{ style: { background: '#4f6f52' } }}

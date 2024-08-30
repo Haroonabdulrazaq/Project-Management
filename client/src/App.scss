@@ -128,10 +128,10 @@ body {
   }
   .main-title {
     font-size: 1rem;
+    font-weight: 600;
     @include responsive('tab') {
       font-size: 2rem;
     }
-    font-weight: 500;
   }
   .data-table {
     width: 50%;

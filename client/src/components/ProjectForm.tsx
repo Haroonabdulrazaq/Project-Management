@@ -9,7 +9,7 @@ import CustomModal from './CustomModal';
 const { TextArea } = Input;
 
 const onFinishFailed: FormProps<IProject>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
+  console.error('Failed:', errorInfo);
 };
 
 const ProjectForm: React.FC = () => {
@@ -27,7 +27,11 @@ const ProjectForm: React.FC = () => {
   return (
     <>
       {isModalOpen && (
-        <CustomModal status="success" message="Project created successfully!" />
+        <CustomModal
+          title="Successfully Created"
+          status="success"
+          message="Project created successfully!"
+        />
       )}
       <Form
         name="basic"

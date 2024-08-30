@@ -24,6 +24,7 @@ export const fetchProjects = createAsyncThunk(
     }
   }
 );
+
 export const fetchProjectById = createAsyncThunk(
   'projects/fetchProjectById',
   async (payload: number) => {
@@ -36,6 +37,7 @@ export const fetchProjectById = createAsyncThunk(
     }
   }
 );
+
 export const createProject = createAsyncThunk(
   'projects/createProject',
   async (payload: IProject) => {

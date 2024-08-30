@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchProjects } from '../features/project/projectSlice';
 import { RootState, useAppDispatch } from '../app/store';
-import { AiTwotoneEye } from 'react-icons/ai';
+import { AiOutlineDelete, AiTwotoneEye } from 'react-icons/ai';
 import { IProject } from '../utils/definitions';
 import { Link } from 'react-router-dom';
 
@@ -52,7 +52,10 @@ const TableContent: React.FC = () => {
         render={(_: any, record: IProject) => (
           <Space size="large">
             <Link to={`/projects/${record.id}`}>
-              <AiTwotoneEye />
+              <AiTwotoneEye size="1.5rem" title="View detail" />
+            </Link>
+            <Link to={`/projects/${record.id}`}>
+              <AiOutlineDelete size="1.5rem" color="red" title="Delete" />
             </Link>
           </Space>
         )}
