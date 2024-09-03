@@ -145,9 +145,14 @@ body {
 // New project
 .new-project-wrapper {
   @include flexPoint(column, flex-start);
-  margin-top: 8rem;
+  margin-top: 0.5rem;
   width: 100%;
-  min-height: 100%;
+  @include responsive('tab') {
+    margin-top: 5rem;
+  }
+  @include responsive('large-screen') {
+    margin-top: 8rem;
+  }
 }
 .form-wrapper {
   width: 35%;
@@ -221,7 +226,6 @@ button:hover {
   .task-list {
     width: 100%;
     border-radius: 0.5rem;
-    background: $white;
     box-shadow: $shadow;
     margin-bottom: 5rem;
     text-align: center;

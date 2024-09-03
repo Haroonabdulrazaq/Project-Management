@@ -20,9 +20,10 @@ const ProjectForm: React.FC = () => {
   const onFinish: FormProps<IProject>['onFinish'] = async (
     values: IProject
   ) => {
-    setIsModalOpen(true);
+    setIsModalOpen(true); // optimistic update
     await dispatch(createProject(values));
     form.resetFields();
+    setIsModalOpen(false);
   };
   return (
     <>

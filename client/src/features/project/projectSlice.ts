@@ -19,7 +19,6 @@ export const fetchProjects = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
@@ -54,6 +53,26 @@ export const createProject = createAsyncThunk(
     } catch (error) {
       return error;
     }
+  }
+);
+
+export const deleteProject = createAsyncThunk(
+  'projects/deleteProject',
+  async (projectId: number, { rejectWithValue }) => {
+    const response = await fetch(`${VITE_SERVER_URL}/projects/${projectId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return rejectWithValue(data.message || 'Failed to delete project');
+    }
+
+    return data;
   }
 );
 
@@ -99,6 +118,14 @@ const projectSlice = createSlice({
     builder.addCase(fetchProjectById.rejected, (state, action) => {
       state.error = action.payload as string;
       state.isLoading = false;
+      state.selectedProject = null;
+    });
+    builder.addCase(deleteProject.fulfilled, (state, action) => {
+      state.selectedProject = action.payload.data;
+      state.error = '';
+    });
+    builder.addCase(deleteProject.rejected, (state, action) => {
+      state.error = action.payload as string;
       state.selectedProject = null;
     });
   },

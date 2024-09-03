@@ -153,9 +153,7 @@ export const deleteProject = async (
 
     if (project.Tasks.length > 0) {
       res.status(400).json({
-        message:
-          'Project has tasks, cannot delete, kindly delete all tasks first',
-        data: project,
+        message: 'Project has tasks, cannot delete, kindly delete all tasks',
       });
       return;
     }

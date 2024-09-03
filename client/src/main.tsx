@@ -10,7 +10,8 @@ import ErrorPage from './error-page.tsx';
 import App from './App.tsx';
 import './index.scss';
 import Project from './pages/Project.tsx';
-import ComingSoon from './components/ComingSoon.tsx';
+// import ComingSoon from './components/ComingSoon.tsx';
+import NewTask from './pages/NewTask.tsx';
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,8 @@ const router = createBrowserRouter([
         element: <Project />,
       },
       {
-        path: '/tasks/new',
-        element: <ComingSoon />,
+        path: 'projects/:projectId/tasks/new',
+        element: <NewTask />,
       },
     ],
   },
